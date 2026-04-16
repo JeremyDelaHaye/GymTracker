@@ -12,18 +12,22 @@
         <p>Workouts</p>
             <div style="display: flex; flex-direction: column; gap: 8px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <button id="addWorkout">Add Workout</button>
+                    <button onclick="addWorkout()" "addWorkout">Add Workout</button>
                     <input type="text" id="workoutName" name="workoutName">
             </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <button id="addExersize">Add exersize</button>
+                    <button onclick='addExersize()'id="addExersize">Add exersize</button>
                     <input type="text" id="exersizeName" name="exersizeName">
+                    <input type="number" placeholder="Sets" class="small-input">
+<input type="number" placeholder="Reps" class="small-input">
                 </div>
             </div>
     </main>
 
     <special-footer>  </special-footer>
     <script src="headerFooterManager.js"></script>
+    <script src="addWorkouts.js"></script>
+    <script src="script.js"></script>
     <link rel="stylesheet" href="styling.css"
 </body>
 </html>

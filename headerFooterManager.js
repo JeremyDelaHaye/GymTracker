@@ -5,7 +5,7 @@ class SpecialFooter extends HTMLElement
         this.innerHTML = 
         `<footer>
         <a href="workouts.html"><button id="Workouts">Workouts</button></a>
-        <a href="index.html"><button id="home">Home</button></a>
+        <a href="index.php"><button id="home">Home</button></a>
         <a href="stats.html"><button id="stats">Stats</button></a>
         </footer>`
     }
