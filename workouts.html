@@ -12,8 +12,7 @@
         <p>Workouts</p>
             <div style="display: flex; flex-direction: column; gap: 8px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <button onclick="addWorkout()" "addWorkout">Add Workout</button>
-                    <input type="text" id="workoutName" name="workoutName">
+                    <input type="text" id="workoutName"placeholder="Workout Name " name="workoutName">
             </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <button onclick='addExersize()'id="addExersize">Add exersize</button>
@@ -21,6 +20,7 @@
                     <input type="number" id="setNum" placeholder="Sets" class="small-input">
                     <input type="number" id="repNum" placeholder="Reps" class="small-input">
                 </div>
+                <button onclick='createWorkout()'id="createWorkout">Create Workout</button>
             </div>
     </main>
 
