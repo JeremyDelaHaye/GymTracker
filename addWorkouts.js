@@ -29,23 +29,19 @@ function addExersize()
 
 function createWorkout()
 {
-    if (document.getElementById("workoutName").value === '')
-    {
-        alert('Workout must be named!')
+    if(!inputVal(document.getElementById("workoutName").value,'') || !inputVal(exercises.length,0) )
+    {   
+        alert('All boxes must have inputs')
     }
-    else if (exercises.length === 0)
-    {
-        alert('Workout must have atleast one exercise')
-    }
-    else 
+    else
     {
         fetch('api.php',
         {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({action: 'save_workout', name: document.getElementById("workoutName").value})   
-        }
-        )
+        })
+    
         .then(response => response.text())
         .then(result => 
         {
@@ -59,19 +55,18 @@ function createWorkout()
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify
                     ({
-                        action: 'save_exersize',
-                        workout_id: workoutId,
-                        name: exercises[i].name,
-                        planned_sets: exercises[i].sets,
-                        planned_reps: exercises[i].reps
+                    action: 'save_exersize',
+                    workout_id: workoutId,
+                    name: exercises[i].name,
+                    planned_sets: exercises[i].sets,
+                    planned_reps: exercises[i].reps
                     })
                 })   
-            }
+            }   
+            alert('Workout added!')
+            clearInputs()
         });
-
-        alert('Workout added!')
-        clearInputs()
-    }
+    } 
 }
 
 function renderExercises()
