@@ -1,4 +1,5 @@
 let currentWorkout;
+let sessionExercise = []
 
 function renderDropDown()
 {
@@ -51,6 +52,8 @@ function loadWorkout(id)
             let item = document.createElement("div")
             item.innerHTML = `
             <input type="checkbox" id="exercise${i}">
+
+
             <label for="exercise${i}">${result[i].name}</label>
             <input type="number" id="sets${i}" value="${result[i].planned_sets}" min="1" class="small-input">
             <label>sets</label>
@@ -79,13 +82,38 @@ function saveSession()
     then(response => response.json())
     .then(result =>
     {
-
+        let sessionId = parseInt(result)
+        for (let i = 0; i < sessionExercise.length;i++)
+        {
+            fetch('api.php',
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify
+                ({
+                    action: 'save_session_set',
+                    sessionId: sessionId,
+                    exercise_id: sessionExercise[i].id,
+                    set_number: sessionExercise[i].setNum,
+                    weight: sessionExercise[i].weight,
+                    completed: sessionExercise[i].completed
+                })
+            })
+        }
     })
 }
 
 function addExersize()
 {
-
+    //remeber object struct
+    let exercise = 
+    {
+        sessionId: '',
+        id:'',
+        setNum:'',
+        weight:'',
+        completed: true 
+    }
 }
 
 
