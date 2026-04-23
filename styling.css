@@ -116,3 +116,26 @@ li
     width: 300px;
     text-align: center;
 }
+
+.dropdown
+{
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu
+{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: rgb(71, 80, 104);
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 6px;
+}
+
+.hidden
+{
+    display: none;
+}

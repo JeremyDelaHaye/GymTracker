@@ -10,13 +10,15 @@
     <special-header></special-header>
 
     <main>
-        <section>
-            <input type="checkbox" id="exersize1 ">
-        </section>
+        <div class="dropdown">
+            <button onclick="renderDropDown()">Select Workout</button>
+                <div id="dropdownMenu" class="dropdown-menu hidden"></div>
+        </div>
+        <div id="checklistContainer"></div>
+        <button onclick="saveSession()">Save Session</button>
     </main>
 
     <special-footer> </special-footer>
-    <script src="script.js"></script>
     <script src="headerFooterManager.js"></script>
     <script src="home.js"></script>
     <link rel="stylesheet" href="styling.css">

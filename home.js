@@ -1,18 +1,91 @@
-function testApi()
+let currentWorkout;
+
+function renderDropDown()
 {
     fetch('api.php',
     {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({action: 'get_workouts'})
-    }
-    )   
-        .then(response => response.json())
-        .then(result => 
+    })
+    .then(response => response.json())
+    .then(result => 
+    {
+        let menu = document.getElementById("dropdownMenu")
+        menu.innerHTML = ""
+
+        for (let i = 0; i < result.length; i++)
         {
-            for (let i = 0; i< result.length; i++)
+            let btn = document.createElement("button")
+            btn.textContent = result[i].name
+            btn.onclick = function()
             {
-                console.log(result[i].name)
+                loadWorkout(result[i].id)
+                currentWorkout = results[i].id
             }
-        });
+            menu.appendChild(btn)
+        }
+
+        menu.classList.toggle("hidden")
+    });
 }
+
+
+
+function loadWorkout(id)
+{
+    fetch('api.php',
+    {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({action: 'get_exersizes', workout_id: id})
+    })
+    .then(response => response.json())
+    .then(result =>
+    {
+        let container = document.getElementById("checklistContainer")
+        container.innerHTML = ""
+
+        for (let i = 0; i < result.length; i++)
+        {
+            let item = document.createElement("div")
+            item.innerHTML = `
+            <input type="checkbox" id="exercise${i}">
+            <label for="exercise${i}">${result[i].name}</label>
+            <input type="number" id="sets${i}" value="${result[i].planned_sets}" min="1" class="small-input">
+            <label>sets</label>
+            <input type="number" id="reps${i}" value="${result[i].planned_reps}" min="1" class="small-input">
+            <label>reps</label>
+            <input type="number" id="weight${i}" placeholder="kg" min="0" class="small-input">
+            `
+            container.appendChild(item)
+        }
+        
+    });
+}
+
+function saveSession()
+{
+    fetch('api.php',
+    {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify
+        ({
+            action: 'save_session',
+            workout_id: currentWorkout,
+        })
+    })   
+    then(response => response.json())
+    .then(result =>
+    {
+
+    })
+}
+
+function addExersize()
+{
+
+}
+
+
