@@ -1,7 +1,7 @@
 let currentWorkout;
 let charts = { weight: null, reps: null, sets: null }
 
-function renderDropDown()
+function renderWorkoutBar()
 {
     fetch('api.php',
     {
@@ -12,8 +12,8 @@ function renderDropDown()
     .then(response => response.json())
     .then(result =>
     {
-        let menu = document.getElementById("dropdownMenu")
-        menu.innerHTML = ""
+        let bar = document.getElementById("workoutBar")
+        bar.innerHTML = ""
 
         for (let i = 0; i < result.length; i++)
         {
@@ -23,18 +23,10 @@ function renderDropDown()
             {
                 currentWorkout = result[i].id
                 loadExerciseDropdown(result[i].id)
-                menu.classList.add("hidden")
             }
-            menu.appendChild(btn)
+            bar.appendChild(btn)
         }
-
-        menu.classList.toggle("hidden")
     });
-}
-
-function toggleExerciseDropdown()
-{
-    document.getElementById("exerciseDropdownMenu").classList.toggle("hidden")
 }
 
 function loadExerciseDropdown(workoutId)
@@ -62,6 +54,8 @@ function loadExerciseDropdown(workoutId)
             }
             menu.appendChild(btn)
         }
+
+        menu.classList.remove("hidden")
     });
 }
 
@@ -119,3 +113,5 @@ function renderChart(id, chartKey, labels, data, label, colour)
         }
     })
 }
+
+renderWorkoutBar()

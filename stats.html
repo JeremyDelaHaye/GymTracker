@@ -10,26 +10,22 @@
     <special-header> </special-header>
     
     <main>
-    <div class="dropdown">
-        <button onclick="renderDropDown()">Select Workout</button>
-        <div id="dropdownMenu" class="dropdown-menu hidden"></div>
-    </div>
+        <div id="workoutBar" class="workout-bar"></div>
 
-    <div class="dropdown">
-        <button onclick="toggleExerciseDropdown()">Select Exercise</button>
-        <div id="exerciseDropdownMenu" class="dropdown-menu hidden"></div>
-    </div>
+        <div class="dropdown">
+            <div id="exerciseDropdownMenu" class="dropdown-menu hidden"></div>
+        </div>
 
-    <div id="graphContainer" class="hidden">
-        <canvas id="weightChart"></canvas>
-        <canvas id="repsChart"></canvas>
-        <canvas id="setsChart"></canvas>
-    </div>
-</main>
+        <div id="graphContainer" class="hidden">
+            <canvas id="weightChart"></canvas>
+            <canvas id="repsChart"></canvas>
+            <canvas id="setsChart"></canvas>
+        </div>
+    </main>
 
-    <special-footer>  </special-footer>
+    <special-footer></special-footer>
     <script src="headerFooterManager.js"></script>
     <script src="stats.js"></script>
-    <link rel="stylesheet" href="styling.css"
+    <link rel="stylesheet" href="styling.css">
 </body>
 </html>

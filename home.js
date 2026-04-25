@@ -1,7 +1,7 @@
 let currentWorkout;
 let sessionExercise = []
 
-function renderDropDown()
+function renderWorkoutBar()
 {
     fetch('api.php',
     {
@@ -10,10 +10,10 @@ function renderDropDown()
         body: JSON.stringify({action: 'get_workouts'})
     })
     .then(response => response.json())
-    .then(result => 
+    .then(result =>
     {
-        let menu = document.getElementById("dropdownMenu")
-        menu.innerHTML = ""
+        let bar = document.getElementById("workoutBar")
+        bar.innerHTML = ""
 
         for (let i = 0; i < result.length; i++)
         {
@@ -24,10 +24,8 @@ function renderDropDown()
                 loadWorkout(result[i].id)
                 currentWorkout = result[i].id
             }
-            menu.appendChild(btn)
+            bar.appendChild(btn)
         }
-
-        menu.classList.toggle("hidden")
     });
 }
 
@@ -143,3 +141,4 @@ function addExercise(id, setNum, reps, weight)
 
     sessionExercise.push(exercise)
 }
+renderWorkoutBar()
