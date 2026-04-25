@@ -50,15 +50,29 @@ if ($action === 'save_session')
 
 if ($action === 'save_session_set')
 {
-    $stmt = $conn->prepare("INSERT INTO session_sets (session_id, exercise_id, set_number, weight, completed) VALUES (:session_id, :exercise_id, :set_number, :weight, :completed)");
+    $stmt = $conn->prepare("INSERT INTO session_sets (session_id, exercise_id, set_number, rep_number, weight, completed) VALUES (:session_id, :exercise_id, :set_number, :rep_number, :weight, :completed)");
     $stmt->execute([
         ':session_id' => $data['session_id'],
         ':exercise_id' => $data['exercise_id'],
         ':set_number' => $data['set_number'],
-        ':weight' => $data['weight'],
+        ':rep_number' => $data['rep_number'],
+        ':weight' => !empty($data['weight']) ? $data['weight'] : 0,
         ':completed' => $data['completed']
     ]);
     echo "Saved!";
+}
+
+if ($action === 'get_exercise_history')
+{
+    $stmt = $conn->prepare("
+        SELECT session_sets.weight, session_sets.rep_number, session_sets.set_number, sessions.date
+        FROM session_sets
+        JOIN sessions ON session_sets.session_id = sessions.id
+        WHERE session_sets.exercise_id = :exercise_id
+        ORDER BY sessions.date ASC
+    ");
+    $stmt->execute([':exercise_id' => $data['exercise_id']]);
+    echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
 }
 
 ?>

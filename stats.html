@@ -4,16 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats - GymTracker</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
     <special-header> </special-header>
     
     <main>
-        <p>Stats</p>
-    </main>
+    <div class="dropdown">
+        <button onclick="renderDropDown()">Select Workout</button>
+        <div id="dropdownMenu" class="dropdown-menu hidden"></div>
+    </div>
+
+    <div class="dropdown">
+        <button onclick="toggleExerciseDropdown()">Select Exercise</button>
+        <div id="exerciseDropdownMenu" class="dropdown-menu hidden"></div>
+    </div>
+
+    <div id="graphContainer" class="hidden">
+        <canvas id="weightChart"></canvas>
+        <canvas id="repsChart"></canvas>
+        <canvas id="setsChart"></canvas>
+    </div>
+</main>
 
     <special-footer>  </special-footer>
     <script src="headerFooterManager.js"></script>
+    <script src="stats.js"></script>
     <link rel="stylesheet" href="styling.css"
 </body>
 </html>

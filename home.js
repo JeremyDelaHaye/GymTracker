@@ -22,7 +22,7 @@ function renderDropDown()
             btn.onclick = function()
             {
                 loadWorkout(result[i].id)
-                currentWorkout = results[i].id
+                currentWorkout = result[i].id
             }
             menu.appendChild(btn)
         }
@@ -30,8 +30,6 @@ function renderDropDown()
         menu.classList.toggle("hidden")
     });
 }
-
-
 
 function loadWorkout(id)
 {
@@ -50,20 +48,45 @@ function loadWorkout(id)
         for (let i = 0; i < result.length; i++)
         {
             let item = document.createElement("div")
+            item.className = "exercise-card"
             item.innerHTML = `
-            <input type="checkbox" id="exercise${i}">
+            <span class="exercise-name">${result[i].name}</span>
+            <div class="exercise-inputs">
+                <input type="number" id="sets${i}" value="${result[i].planned_sets}" min="1" class="small-input">
+                <label>sets</label>
+                <input type="number" id="reps${i}" value="${result[i].planned_reps}" min="1" class="small-input">
+                <label>reps</label>
+                <input type="number" id="weight${i}" placeholder="kg" min="0" class="small-input">
+                <label>kg</label>
+            </div>`
+            
 
+            let checkbox = document.createElement("input")
+            checkbox.type = "checkbox"
+            checkbox.id = `exercise${i}`
+            checkbox.onclick = function()
+            {
+                if (checkbox.checked)
+                {
+                    let setNum = document.getElementById(`sets${i}`).value
+                    let reps = document.getElementById(`reps${i}`).value
+                    let weight = document.getElementById(`weight${i}`).value
 
-            <label for="exercise${i}">${result[i].name}</label>
-            <input type="number" id="sets${i}" value="${result[i].planned_sets}" min="1" class="small-input">
-            <label>sets</label>
-            <input type="number" id="reps${i}" value="${result[i].planned_reps}" min="1" class="small-input">
-            <label>reps</label>
-            <input type="number" id="weight${i}" placeholder="kg" min="0" class="small-input">
-            `
+                    if (setNum === '' || reps === '' || weight === '')
+                    {
+                        alert('Please fill in sets, reps and weight before checking off')
+                        checkbox.checked = false
+                    }
+                    else
+                    {
+                        addExercise(result[i].id, setNum, reps, weight)
+                    }
+                }
+            }
+
+            item.prepend(checkbox)
             container.appendChild(item)
         }
-        
     });
 }
 
@@ -78,12 +101,13 @@ function saveSession()
             action: 'save_session',
             workout_id: currentWorkout,
         })
-    })   
-    then(response => response.json())
+    })
+    .then(response => response.text())
     .then(result =>
     {
         let sessionId = parseInt(result)
-        for (let i = 0; i < sessionExercise.length;i++)
+
+        for (let i = 0; i < sessionExercise.length; i++)
         {
             fetch('api.php',
             {
@@ -92,28 +116,30 @@ function saveSession()
                 body: JSON.stringify
                 ({
                     action: 'save_session_set',
-                    sessionId: sessionId,
+                    session_id: sessionId,
                     exercise_id: sessionExercise[i].id,
                     set_number: sessionExercise[i].setNum,
+                    rep_number: sessionExercise[i].reps,
                     weight: sessionExercise[i].weight,
                     completed: sessionExercise[i].completed
                 })
             })
+            .then(response => response.text())
+            .then(result => console.log(result))
         }
     })
 }
 
-function addExersize()
+function addExercise(id, setNum, reps, weight)
 {
-    //remeber object struct
     let exercise = 
     {
-        sessionId: '',
-        id:'',
-        setNum:'',
-        weight:'',
+        id: id,
+        setNum: setNum,
+        reps: reps,
+        weight: weight,
         completed: true 
     }
+
+    sessionExercise.push(exercise)
 }
-
-

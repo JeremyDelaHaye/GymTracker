@@ -9,21 +9,24 @@
     <special-header> </special-header>
     
     <main>
-        <p>Workouts</p>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <input type="text" id="workoutName"placeholder="Workout Name " name="workoutName">
-            </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <button onclick='addExersize()'id="addExersize">Add exersize</button>
-                    <input type="text" id="exersizeName" name="exersizeName">
-                    <input type="number" id="setNum" placeholder="Sets" class="small-input">
-                    <input type="number" id="repNum" placeholder="Reps" class="small-input">   
-                </div>
-                <ul id="exerciseList"></ul>
-                <button onclick='createWorkout()'id="createWorkout">Create Workout</button>
-            </div>
-    </main>
+    <p>Create Workout</p>
+    <div class="workout-form">
+
+        <input type="text" id="workoutName" placeholder="Workout Name" name="workoutName" class="workout-name-input">
+
+        <div class="add-exercise-row">
+            <input type="text" id="exersizeName" placeholder="Exercise Name" name="exersizeName">
+            <input type="number" id="setNum" placeholder="Sets" class="small-input">
+            <input type="number" id="repNum" placeholder="Reps" class="small-input">
+            <button onclick='addExersize()'>Add</button>
+        </div>
+
+        <ul id="exerciseList"></ul>
+
+        <button onclick='createWorkout()' class="create-btn">Create Workout</button>
+
+    </div>
+</main>
 
     <special-footer>  </special-footer>
     <script src="headerFooterManager.js"></script>
