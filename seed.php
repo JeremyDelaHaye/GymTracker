@@ -13,7 +13,8 @@ foreach ($workouts as $workout)
 }
 
 // Exercises
-$exercises = [
+$exercises = 
+[
     'Push' => [
         ['Bench Press', 4, 8],
         ['Shoulder Press', 3, 10],
