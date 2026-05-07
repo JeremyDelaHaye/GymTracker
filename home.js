@@ -139,4 +139,10 @@ function addExercise(id, setNum, reps, weight)
 
     sessionExercise.push(exercise)
 }
+
+document.getElementById("workoutBar").addEventListener("change", function()
+{
+    loadWorkout(this.value)
+})
+
 renderWorkoutBar()

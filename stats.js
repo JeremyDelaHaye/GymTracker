@@ -107,4 +107,14 @@ function renderChart(id, chartKey, labels, data, label, colour)
     })
 }
 
+document.getElementById("workoutBar").addEventListener("change", function()
+{
+    loadExerciseDropdown(this.value)
+})
+
+document.getElementById("exerciseDropdownMenu").addEventListener("change", function()
+{
+    if (this.value) loadGraphs(this.value)
+})
+
 renderWorkoutBar()
