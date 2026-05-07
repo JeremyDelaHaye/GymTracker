@@ -13,23 +13,24 @@ function renderWorkoutBar()
     .then(result =>
     {
         let bar = document.getElementById("workoutBar")
-        bar.innerHTML = "<option value=''>Select Workout</option>"
+        bar.innerHTML = ""
 
         for (let i = 0; i < result.length; i++)
         {
-            let option = document.createElement("option")
-            option.value = result[i].id
-            option.textContent = result[i].name
-            bar.appendChild(option)
+            let btn = document.createElement("button")
+            btn.textContent = result[i].name
+            btn.onclick = function()
+            {
+                currentWorkout = result[i].id
+                loadExerciseDropdown(result[i].id)
+            }
+            bar.appendChild(btn)
         }
     });
 }
 
 function loadExerciseDropdown(workoutId)
 {
-    if (workoutId === '') return
-    currentWorkout = workoutId
-
     fetch('api.php',
     {
         method: 'POST',
@@ -40,15 +41,21 @@ function loadExerciseDropdown(workoutId)
     .then(result =>
     {
         let menu = document.getElementById("exerciseDropdownMenu")
-        menu.innerHTML = "<option value=''>Select Exercise</option>"
+        menu.innerHTML = ""
 
         for (let i = 0; i < result.length; i++)
         {
-            let option = document.createElement("option")
-            option.value = result[i].id
-            option.textContent = result[i].name
-            menu.appendChild(option)
+            let btn = document.createElement("button")
+            btn.textContent = result[i].name
+            btn.onclick = function()
+            {
+                loadGraphs(result[i].id)
+                menu.classList.add("hidden")
+            }
+            menu.appendChild(btn)
         }
+
+        menu.classList.remove("hidden")
     });
 }
 
@@ -106,15 +113,5 @@ function renderChart(id, chartKey, labels, data, label, colour)
         }
     })
 }
-
-document.getElementById("workoutBar").addEventListener("change", function()
-{
-    loadExerciseDropdown(this.value)
-})
-
-document.getElementById("exerciseDropdownMenu").addEventListener("change", function()
-{
-    if (this.value) loadGraphs(this.value)
-})
 
 renderWorkoutBar()

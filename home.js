@@ -13,22 +13,24 @@ function renderWorkoutBar()
     .then(result =>
     {
         let bar = document.getElementById("workoutBar")
-        bar.innerHTML = "<option value=''>Select Workout</option>"
+        bar.innerHTML = ""
 
         for (let i = 0; i < result.length; i++)
         {
-            let option = document.createElement("option")
-            option.value = result[i].id
-            option.textContent = result[i].name
-            bar.appendChild(option)
+            let btn = document.createElement("button")
+            btn.textContent = result[i].name
+            btn.onclick = function()
+            {
+                loadWorkout(result[i].id)
+                currentWorkout = result[i].id
+            }
+            bar.appendChild(btn)
         }
     });
 }
 
 function loadWorkout(id)
 {
-    if (id === '') return
-    currentWorkout = id
     fetch('api.php',
     {
         method: 'POST',
@@ -55,7 +57,6 @@ function loadWorkout(id)
                 <input type="number" id="weight${i}" placeholder="kg" min="0" class="small-input">
                 <label>kg</label>
             </div>`
-            
 
             let checkbox = document.createElement("input")
             checkbox.type = "checkbox"
@@ -128,21 +129,16 @@ function saveSession()
 
 function addExercise(id, setNum, reps, weight)
 {
-    let exercise = 
+    let exercise =
     {
         id: id,
         setNum: setNum,
         reps: reps,
         weight: weight,
-        completed: true 
+        completed: true
     }
 
     sessionExercise.push(exercise)
 }
-
-document.getElementById("workoutBar").addEventListener("change", function()
-{
-    loadWorkout(this.value)
-})
 
 renderWorkoutBar()
