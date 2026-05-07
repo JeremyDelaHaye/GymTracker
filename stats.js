@@ -13,24 +13,23 @@ function renderWorkoutBar()
     .then(result =>
     {
         let bar = document.getElementById("workoutBar")
-        bar.innerHTML = ""
+        bar.innerHTML = "<option value=''>Select Workout</option>"
 
         for (let i = 0; i < result.length; i++)
         {
-            let btn = document.createElement("button")
-            btn.textContent = result[i].name
-            btn.onclick = function()
-            {
-                currentWorkout = result[i].id
-                loadExerciseDropdown(result[i].id)
-            }
-            bar.appendChild(btn)
+            let option = document.createElement("option")
+            option.value = result[i].id
+            option.textContent = result[i].name
+            bar.appendChild(option)
         }
     });
 }
 
 function loadExerciseDropdown(workoutId)
 {
+    if (workoutId === '') return
+    currentWorkout = workoutId
+
     fetch('api.php',
     {
         method: 'POST',
@@ -41,21 +40,15 @@ function loadExerciseDropdown(workoutId)
     .then(result =>
     {
         let menu = document.getElementById("exerciseDropdownMenu")
-        menu.innerHTML = ""
+        menu.innerHTML = "<option value=''>Select Exercise</option>"
 
         for (let i = 0; i < result.length; i++)
         {
-            let btn = document.createElement("button")
-            btn.textContent = result[i].name
-            btn.onclick = function()
-            {
-                loadGraphs(result[i].id)
-                menu.classList.add("hidden")
-            }
-            menu.appendChild(btn)
+            let option = document.createElement("option")
+            option.value = result[i].id
+            option.textContent = result[i].name
+            menu.appendChild(option)
         }
-
-        menu.classList.remove("hidden")
     });
 }
 

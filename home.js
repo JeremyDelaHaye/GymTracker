@@ -13,24 +13,22 @@ function renderWorkoutBar()
     .then(result =>
     {
         let bar = document.getElementById("workoutBar")
-        bar.innerHTML = ""
+        bar.innerHTML = "<option value=''>Select Workout</option>"
 
         for (let i = 0; i < result.length; i++)
         {
-            let btn = document.createElement("button")
-            btn.textContent = result[i].name
-            btn.onclick = function()
-            {
-                loadWorkout(result[i].id)
-                currentWorkout = result[i].id
-            }
-            bar.appendChild(btn)
+            let option = document.createElement("option")
+            option.value = result[i].id
+            option.textContent = result[i].name
+            bar.appendChild(option)
         }
     });
 }
 
 function loadWorkout(id)
 {
+    if (id === '') return
+    currentWorkout = id
     fetch('api.php',
     {
         method: 'POST',

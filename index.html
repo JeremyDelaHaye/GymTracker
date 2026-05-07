@@ -10,7 +10,9 @@
     <special-header></special-header>
 
     <main>
-        <div id="workoutBar" class="workout-bar"></div>
+        <select id="workoutBar" onchange="loadWorkout(this.value)">
+            <option value="">Select Workout</option>
+        </select>
         <div id="checklistContainer"></div>
         <button onclick="saveSession()">Save Session</button>
     </main>

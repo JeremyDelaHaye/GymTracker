@@ -10,11 +10,13 @@
     <special-header> </special-header>
     
     <main>
-        <div id="workoutBar" class="workout-bar"></div>
+        <select id="workoutBar" onchange="loadExerciseDropdown(this.value)">
+            <option value="">Select Workout</option>
+        </select>
 
-        <div class="dropdown">
-            <div id="exerciseDropdownMenu" class="dropdown-menu hidden"></div>
-        </div>
+        <select id="exerciseDropdownMenu" onchange="if(this.value) loadGraphs(this.value)">
+            <option value="">Select Exercise</option>
+        </select>
 
         <div id="graphContainer" class="hidden">
             <canvas id="weightChart"></canvas>
