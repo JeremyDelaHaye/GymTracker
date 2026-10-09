@@ -23,8 +23,7 @@ function addExersize()
     else
     {
         alert('All exercise fields must have inputs!')
-    }
-       
+    }  
 }
 
 function createWorkout()

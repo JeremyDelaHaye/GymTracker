@@ -85,6 +85,5 @@ foreach ($workouts as $workout)
         }
     }
 }
-
 echo "Done!";
 ?>

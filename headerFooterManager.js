@@ -20,7 +20,6 @@ class SpecialHeader extends HTMLElement
         <h1>GymTracker</h1>
         </header>`
     }
-
 }
 
 customElements.define(`special-footer`,SpecialFooter)

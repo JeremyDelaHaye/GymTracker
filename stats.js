@@ -1,6 +1,5 @@
 let currentWorkout;
 let charts = { weight: null, reps: null, sets: null }
-
 function renderWorkoutBar()
 {
     fetch('api.php',

@@ -1,6 +1,5 @@
 let currentWorkout;
 let sessionExercise = []
-
 function renderWorkoutBar()
 {
     fetch('api.php',
